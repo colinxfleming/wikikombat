@@ -24,7 +24,7 @@ post '/' do
 end
 
 put '/:id' do 
-  # edit route
+  # update route
   redirect '/'
 end
 
