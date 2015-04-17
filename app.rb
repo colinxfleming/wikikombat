@@ -6,5 +6,28 @@ require 'sinatra'
 
 
 get '/' do 
-  "YOLO GOAT"
+  # index route
+  @title = 'Yolorita | Index'
+  erb :index
+end
+
+get '/:id' do 
+  # show route
+  @title = 'Yolorita | Show'
+  erb :show
+end
+
+post '/' do 
+  # create route
+  redirect '/'
+end
+
+put '/:id' do 
+  # edit route
+  redirect '/'
+end
+
+delete '/:id' do 
+  # destroy route
+  redirect '/'
 end
