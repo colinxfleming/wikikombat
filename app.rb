@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'tilt/erubis'
 
 # require_relative 'routes/init'
 # require_relative 'helpers/init'
@@ -7,13 +8,13 @@ require 'sinatra'
 
 get '/' do 
   # index route
-  @title = 'Yolorita | Index'
+  @title = 'Index'
   erb :index
 end
 
 get '/:id' do 
   # show route
-  @title = 'Yolorita | Show'
+  @title = 'Show'
   erb :show
 end
 
