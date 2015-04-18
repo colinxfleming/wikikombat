@@ -1,5 +1,6 @@
-source "http://rubygems.org"
-gem "sinatra"
+source 'http://rubygems.org'
+gem 'sinatra'
+gem 'sass'
 
 group :test do 
 	gem 'minitest'

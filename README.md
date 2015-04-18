@@ -12,4 +12,5 @@ Quick and dirty frame
 	<li>pg setup</li>
 	<li>actual thing</li>
 	<li>api that returns json from calls</li>
+	<li>layouts</li>
 </ul>
