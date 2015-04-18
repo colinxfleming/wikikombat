@@ -5,30 +5,29 @@ require 'tilt/erubis'
 # require_relative 'helpers/init'
 # require_relative 'models/init'
 
+set :title, "Name of Application"
 
+# index route
 get '/' do 
-  # index route
-  @title = 'Index'
   erb :index
 end
 
+# show route
 get '/:id' do 
-  # show route
-  @title = 'Show'
   erb :show
 end
 
+# create route
 post '/' do 
-  # create route
   redirect '/'
 end
 
+# update route
 put '/:id' do 
-  # update route
   redirect '/'
 end
 
+# destroy route
 delete '/:id' do 
-  # destroy route
   redirect '/'
 end
