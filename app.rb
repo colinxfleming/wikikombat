@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'tilt/erubis'
+require 'json'
 
 # require_relative 'routes/init'
 # require_relative 'helpers/init'
@@ -18,8 +19,9 @@ get '/:id' do
 end
 
 # create route
-post '/' do 
-  redirect '/'
+post '/', provides: :json do 
+	puts params	
+	halt 200, {yolo: "#{params[:text_input]}"}.to_json
 end
 
 # update route
@@ -31,3 +33,4 @@ end
 delete '/:id' do 
   redirect '/'
 end
+
