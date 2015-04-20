@@ -1,12 +1,24 @@
 require 'sinatra'
+require 'sinatra/activerecord'
 require 'tilt/erubis'
 require 'json'
+
+db = URI.parse('postgres://user:pass@localhost/sinatra-skeleton')
 
 # require_relative 'routes/init'
 # require_relative 'helpers/init'
 # require_relative 'models/init'
 
-set :title, "Name of Application"
+ActiveRecord::Base.establish_connection(
+  :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
+  :host     => db.host,
+  :username => db.user,
+  :password => db.password,
+  :database => db.path[1..-1],
+  :encoding => 'utf8'
+)
+
+set :title, "Sinatra-Skeleton"
 
 # index route
 get '/' do 

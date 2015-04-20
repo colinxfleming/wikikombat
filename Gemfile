@@ -1,6 +1,8 @@
 source 'http://rubygems.org'
 gem 'sinatra'
-gem 'sass'
+gem 'pg'
+gem 'activerecord'
+gem 'sinatra-activerecord'
 
 group :test do 
 	gem 'minitest'

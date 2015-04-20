@@ -5,4 +5,8 @@ describe 'main app' do
 		get '/'
 		assert last_response.ok?
 	end
+
+	it 'should do something else' do 
+		assert true
+	end
 end
