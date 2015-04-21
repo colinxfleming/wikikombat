@@ -32,17 +32,18 @@ end
 
 # create route
 post '/', provides: :json do 
-	puts params	
+	# puts params	
 	halt 200, {yolo: "#{params[:text_input]}"}.to_json
 end
 
 # update route
 put '/:id' do 
+	puts "update route"
   redirect '/'
 end
 
 # destroy route
 delete '/:id' do 
+	puts "Delete route"
   redirect '/'
 end
-
