@@ -38,12 +38,12 @@ end
 
 # update route
 put '/:id' do 
-	puts "update route"
+	# puts "update route"
   redirect '/'
 end
 
 # destroy route
 delete '/:id' do 
-	puts "Delete route"
+	# puts "Delete route"
   redirect '/'
 end
