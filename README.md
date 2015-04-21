@@ -5,12 +5,9 @@ Quick and dirty frame
 ## TODO
 
 <ul>
-	<li>tests for routes</li>
 	<li>working routes</li>
 	<li>fleshed out gemfile</li>
-	<li>install bootstrap and jquery</li>
-	<li>pg setup</li>
-	<li>actual thing</li>
+	<li>activerecord setup</li>
+	<li>actually make this do something (mortal kombat vs constitution probably)</li>
 	<li>api that returns json from calls</li>
-	<li>layouts</li>
 </ul>
