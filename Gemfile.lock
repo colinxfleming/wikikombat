@@ -42,7 +42,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord
   minitest
   pg
   rack-test
