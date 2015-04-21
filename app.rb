@@ -20,7 +20,7 @@ end
 
 # show route
 get '/:id' do 
-	@requests = Request.find(params[:id])
+	@requests = Request.find params[:id]
 	# @request = Request.first
   erb :show
 end
