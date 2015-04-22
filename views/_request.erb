@@ -1,0 +1,3 @@
+<% request.attributes.select {|k,v| k != 'id' && k !~ /mk/ }.each_value do |value| %>
+	<td><%= value %></td>
+<% end %>

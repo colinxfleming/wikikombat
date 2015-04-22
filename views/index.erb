@@ -11,3 +11,21 @@
 		<div id="result"></div>
 	</div>
 </div>
+
+<div class="row">
+	<div class="col-md-12">
+		<h3>Last five requests</h3>
+		<table class="table table-bordered table-striped">
+			<tr>
+				<% @requests[0].attributes.keys.select {|k| k != 'id' && k !~ /mk/ }.each do |key| %>
+					<th><%= key.capitalize.gsub('_',' ') %></th>
+				<% end %>
+			</tr>
+			<% @requests.each do |req| %>
+				<tr>
+					<%= erb :_request, layout: false, locals: { request: req } %>				
+				</tr>
+			<% end %>
+		</table>
+	</div>		
+</div>

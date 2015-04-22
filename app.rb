@@ -15,13 +15,13 @@ set :database, {adapter: 'postgresql', database: 'sinatra-skeleton'} # make sure
 
 # index route
 get '/' do 
+	@requests = Request.last 5
   erb :index
 end
 
 # show route
 get '/:id' do 
 	@requests = Request.find params[:id]
-	# @request = Request.first
   erb :show
 end
 
