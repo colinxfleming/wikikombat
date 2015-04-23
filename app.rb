@@ -43,7 +43,11 @@ end
 
 # create route
 post '/', provides: :json do 
-	# puts params	
+	# puts params['text_input']	
+  # guide: http://www.mediawiki.org/wiki/API:Main_page
+  # 'http://en.wikipedia.org/w/api.php?format=json&action=query&titles=Main%20Page&prop=revisions&rvprop=content'
+  # access via a.parsed_response['query']['pages'][???????]
+  # Request.create name: params['text_input']
 	halt 200, {yolo: "#{params[:text_input]}"}.to_json
 end
 
