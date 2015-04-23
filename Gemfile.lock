@@ -16,6 +16,7 @@ GEM
       tzinfo (~> 1.1)
     arel (6.0.0)
     builder (3.2.2)
+    erubis (2.7.0)
     i18n (0.7.0)
     json (1.8.2)
     minitest (5.6.0)
@@ -42,10 +43,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  erubis
   minitest
   pg
   rack-test
   rake
   sinatra
   sinatra-activerecord
-  tilt

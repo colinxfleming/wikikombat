@@ -2,7 +2,7 @@
 
 require 'sinatra'
 require 'sinatra/activerecord'
-require 'tilt/erubis'
+require 'erubis'
 require 'json'
 
 # require everything in models and helpers
