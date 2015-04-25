@@ -6,7 +6,7 @@ $(document).ready(function() {
 			$(this).serialize(), 
 			function(data) { 
 				console.log(data); 
-				$('#result').html(data.yolo);
+				$('#result').html(data.msg);
 			},
 			"json"
 		);

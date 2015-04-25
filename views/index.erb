@@ -14,10 +14,10 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<h3>Last five requests</h3>
+		<h3>Last five asks</h3>
 		<table class="table table-bordered table-striped">
 			<tr>
-				<% @requests[0].attributes.keys.select {|k| k != 'id' && k !~ /at/ }.each do |key| %>
+				<% @requests[0].attributes.keys.select {|k| k != 'id' && k !~ /updated/ }.each do |key| %>
 					<th><%= key.capitalize.gsub('_',' ') %></th>
 				<% end %>
 			</tr>

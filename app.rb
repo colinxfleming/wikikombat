@@ -6,7 +6,7 @@ require 'erubis'
 require 'json'
 require 'httparty'
 
-# require 'sinatra/config_file' # uncomment these lines if you need secrets
+# require 'sinatra/config_file' # uncomment these lines and fill out secrets.yml if you need secrets
 # config_file './config/secrets.yml'
 
 # require everything in models and helpers
@@ -47,18 +47,22 @@ end
 
 # create route
 post '/', provides: :json do 
-  # take input and get wikipedia page for that thing
-  # not fancy enough to handle multiple entries for something with the same name
-  input = URI.escape params['text_input']
-  response = HTTParty.get("http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content").parsed_response.to_json
+  if params['text_input'].strip != ''
+    # take input and get wikipedia page for that thing
+    # not fancy enough to handle multiple entries for something with the same name
+    input = URI.escape params['text_input']
+    response = HTTParty.get("http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content").parsed_response.to_json
 
-  mk = Request.find 1
+    mk = Request.where name: 'Mortal Kombat'
 
-  Request.create  name: params['text_input'], 
-                  length: response.length, 
-                  longer_than_mk: response.length > mk.length? ? 1 : 0
+    Request.create  name: params['text_input'], 
+                    length: response.length, 
+                    longer_than_mk: response.length > mk.length ? 1 : 0
 
-	halt 200, {yolo: "#{params[:text_input]}"}.to_json
+  	halt 200, {msg: "#{params[:text_input]}"}.to_json
+  else 
+    halt 200, {msg: 'Please put something in the form!'}.to_json
+  end
 end
 
 # update route
@@ -73,6 +77,7 @@ end
   # redirect '/'
 # end
 
+# close connection to not deplete the pool
 after do 
   ActiveRecord::Base.connection.close
 end
