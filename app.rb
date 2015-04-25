@@ -35,7 +35,7 @@ end
 # ROUTES
 # index route
 get '/' do 
-	@requests = Request.last(5).order(id: :desc)
+	@requests = Request.last(5).reverse
   erb :index
 end
 
