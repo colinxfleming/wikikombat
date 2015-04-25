@@ -17,9 +17,13 @@ GEM
     arel (6.0.0)
     builder (3.2.2)
     erubis (2.7.0)
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     json (1.8.2)
     minitest (5.6.0)
+    multi_xml (0.5.5)
     pg (0.18.1)
     rack (1.6.0)
     rack-protection (1.5.3)
@@ -44,6 +48,7 @@ PLATFORMS
 
 DEPENDENCIES
   erubis
+  httparty
   minitest
   pg
   rack-test

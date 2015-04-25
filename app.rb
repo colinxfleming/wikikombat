@@ -4,6 +4,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'erubis'
 require 'json'
+require 'httparty'
 
 # require everything in models and helpers
 ['models', 'helpers'].each do |dir|
@@ -43,6 +44,8 @@ end
 
 # create route
 post '/', provides: :json do 
+  input = URI.escape params['text_input']
+  response = HTTParty.get "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content"
 	# puts params['text_input']	
   # guide: http://www.mediawiki.org/wiki/API:Main_page
   # 'http://en.wikipedia.org/w/api.php?format=json&action=query&titles=Main%20Page&prop=revisions&rvprop=content'

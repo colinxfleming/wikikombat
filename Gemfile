@@ -6,6 +6,7 @@ gem 'pg'
 gem 'sinatra-activerecord'
 gem 'rake'
 gem 'erubis'
+gem 'httparty'
 
 group :test do 
 	gem 'minitest'
