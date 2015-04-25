@@ -6,18 +6,33 @@ require 'erubis'
 require 'json'
 require 'httparty'
 
-require './config/environments'
+# require 'sinatra/config_file' # uncomment these lines if you need secrets
+# config_file './config/secrets.yml'
 
 # require everything in models and helpers
 ['models', 'helpers'].each do |dir|
 	Dir.entries("./#{dir}").select { |f| !File.directory? f }.each { |file| require_relative "./#{dir}/#{file}" }
 end
 
-# require "sinatra/config_file"
-# config_file 'path/to/config.yml'
-
 set :title, "Sinatra-Skeleton"
 
+# db stuff
+configure :development do 
+  set :database, {adapter: 'postgresql', database: 'sinatra-skeleton'} # make sure to create the db in pg: createdb sinatra-skeleton
+end
+configure :production do
+ db = URI.parse(ENV['DATABASE_URL'] || 'postgres:///localhost/mydb')
+ ActiveRecord::Base.establish_connection(
+   :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
+   :host     => db.host,
+   :username => db.user,
+   :password => db.password,
+   :database => db.path[1..-1],
+   :encoding => 'utf8'
+ )
+end
+
+# ROUTES
 # index route
 get '/' do 
 	@requests = Request.last 5

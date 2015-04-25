@@ -17,7 +17,7 @@
 		<h3>Last five requests</h3>
 		<table class="table table-bordered table-striped">
 			<tr>
-				<% @requests[0].attributes.keys.select {|k| k != 'id' && k !~ /mk/ }.each do |key| %>
+				<% @requests[0].attributes.keys.select {|k| k != 'id' && k !~ /at/ }.each do |key| %>
 					<th><%= key.capitalize.gsub('_',' ') %></th>
 				<% end %>
 			</tr>
