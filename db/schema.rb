@@ -19,11 +19,9 @@ ActiveRecord::Schema.define(version: 20150421164906) do
   create_table "requests", force: :cascade do |t|
     t.string  "name"
     t.integer "length"
-    t.integer "words"
-    t.float   "grade_level"
     t.boolean "longer_than_mk"
-    t.boolean "more_words_than_mk"
-    t.boolean "harder_than_mk"
+
+    t.timestamps
   end
 
 end

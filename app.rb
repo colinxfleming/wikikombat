@@ -11,6 +11,9 @@ require 'httparty'
 	Dir.entries("./#{dir}").select { |f| !File.directory? f }.each { |file| require_relative "./#{dir}/#{file}" }
 end
 
+require "sinatra/config_file"
+config_file 'path/to/config.yml'
+
 set :title, "Sinatra-Skeleton"
 
 configure :development do 
@@ -44,8 +47,16 @@ end
 
 # create route
 post '/', provides: :json do 
+  # take input and get wikipedia page for that thing
+  # not fancy enough to handle multiple entries for something with the same name
   input = URI.escape params['text_input']
-  response = HTTParty.get "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content"
+  response = HTTParty.get("http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content").parsed_response.to_json
+
+
+  Request.create  name: params['text_input'], 
+                  length: response.parsed_response.to_json.length, 
+
+
 	# puts params['text_input']	
   # guide: http://www.mediawiki.org/wiki/API:Main_page
   # 'http://en.wikipedia.org/w/api.php?format=json&action=query&titles=Main%20Page&prop=revisions&rvprop=content'
