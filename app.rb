@@ -53,7 +53,7 @@ post '/', provides: :json do
     input = URI.escape params['text_input']
     response = HTTParty.get("http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content").parsed_response.to_json
 
-    mk = Request.where name: 'Mortal Kombat'
+    mk = Request.where(name: 'Mortal Kombat').first
 
     a = Request.create  name: params['text_input'], 
                     length: response.length, 
