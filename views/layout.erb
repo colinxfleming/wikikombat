@@ -19,6 +19,24 @@
 
   <style>
 		body { padding-top: 70px; }
+
+		/* footer styling */
+		html {
+			position: relative;
+			min-height: 100%;
+		}
+		body {
+			/* Margin bottom by footer height */
+			margin-bottom: 60px;
+		}
+		.footer {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			/* Set the fixed height of the footer here */
+			height: 60px;
+			background-color: #f5f5f5;
+		}
   </style>
 </head>
 <body>
@@ -50,5 +68,11 @@
 		<% end %>
 		<%= yield %>	
 	</div>
+
+	<footer class='footer'>
+		<div class='container'>
+			<h4>This very stupid app built as a simple Sinatra template.</h4>
+		</div>
+	</footer>
 </body>
 </html>

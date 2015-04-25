@@ -8,21 +8,21 @@
 
 <div class="row">
 	<div class="col-md-12 text-center">
-		<div id="result"></div>
+		<h2 id="result">(mash that button!)</h2>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-12">
 		<h3>Last five asks</h3>
-		<table class="table table-bordered table-striped">
+		<table class="table table-bordered table-striped" id='result_table'>
 			<tr>
-				<% @requests[0].attributes.keys.select {|k| k != 'id' && k !~ /updated/ }.each do |key| %>
+				<% @requests[0].attributes.keys.select {|k| k != 'id' && k !~ /at/ }.each do |key| %>
 					<th><%= key.capitalize.gsub('_',' ') %></th>
 				<% end %>
 			</tr>
 			<% @requests.each do |req| %>
-				<tr>
+				<tr class="result_row">
 					<%= erb :_request, layout: false, locals: { request: req } %>				
 				</tr>
 			<% end %>

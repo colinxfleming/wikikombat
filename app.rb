@@ -35,7 +35,7 @@ end
 # ROUTES
 # index route
 get '/' do 
-	@requests = Request.last 5
+	@requests = Request.last(5).order(id: :desc)
   erb :index
 end
 
@@ -55,11 +55,13 @@ post '/', provides: :json do
 
     mk = Request.where name: 'Mortal Kombat'
 
-    Request.create  name: params['text_input'], 
+    a = Request.create  name: params['text_input'], 
                     length: response.length, 
                     longer_than_mk: response.length > mk.length ? 1 : 0
 
-  	halt 200, {msg: "#{params[:text_input]}"}.to_json
+    result = a.longer_than_mk? ? "#{a.name} is longer than the entry for Mortal Kombat." : "#{a.name} is way less complicated than Mortal Kombat!"
+
+  	halt 200, {msg: result}.to_json
   else 
     halt 200, {msg: 'Please put something in the form!'}.to_json
   end
