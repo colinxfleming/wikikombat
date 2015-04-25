@@ -6,32 +6,17 @@ require 'erubis'
 require 'json'
 require 'httparty'
 
+require './config/environments'
+
 # require everything in models and helpers
 ['models', 'helpers'].each do |dir|
 	Dir.entries("./#{dir}").select { |f| !File.directory? f }.each { |file| require_relative "./#{dir}/#{file}" }
 end
 
-require "sinatra/config_file"
-config_file 'path/to/config.yml'
+# require "sinatra/config_file"
+# config_file 'path/to/config.yml'
 
 set :title, "Sinatra-Skeleton"
-
-configure :development do 
-  set :database, {adapter: 'postgresql', database: 'sinatra-skeleton'} # make sure to create the db in pg: createdb sinatra-skeleton
-end
-
-configure :production do
- db = URI.parse(ENV['DATABASE_URL'] || 'postgres:///localhost/mydb')
-
- ActiveRecord::Base.establish_connection(
-   :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
-   :host     => db.host,
-   :username => db.user,
-   :password => db.password,
-   :database => db.path[1..-1],
-   :encoding => 'utf8'
- )
-end
 
 # index route
 get '/' do 
@@ -52,30 +37,26 @@ post '/', provides: :json do
   input = URI.escape params['text_input']
   response = HTTParty.get("http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content").parsed_response.to_json
 
+  mk = Request.find 1
 
   Request.create  name: params['text_input'], 
-                  length: response.parsed_response.to_json.length, 
+                  length: response.length, 
+                  longer_than_mk: response.length > mk.length? ? 1 : 0
 
-
-	# puts params['text_input']	
-  # guide: http://www.mediawiki.org/wiki/API:Main_page
-  # 'http://en.wikipedia.org/w/api.php?format=json&action=query&titles=Main%20Page&prop=revisions&rvprop=content'
-  # access via a.parsed_response['query']['pages'][???????]
-  # Request.create name: params['text_input']
 	halt 200, {yolo: "#{params[:text_input]}"}.to_json
 end
 
 # update route
-put '/:id' do 
+# put '/:id' do 
 	# puts "update route"
-  redirect '/'
-end
+  # redirect '/'
+# end
 
 # destroy route
-delete '/:id' do 
+# delete '/:id' do 
 	# puts "Delete route"
-  redirect '/'
-end
+  # redirect '/'
+# end
 
 after do 
   ActiveRecord::Base.connection.close

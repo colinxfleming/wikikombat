@@ -1,4 +1,4 @@
 class Request < ActiveRecord::Base
-	validates :name, :length, :words, :grade_level, presence: true
+	validates :name, :length, presence: true
 
 end
