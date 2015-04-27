@@ -5,7 +5,7 @@ class CreateRequests < ActiveRecord::Migration
   		t.integer :length
   		t.boolean :longer_than_mk
 
-      t.timestamps, null: false
+      t.timestamps null: false
   	end
   end
 end
