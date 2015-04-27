@@ -4,6 +4,7 @@ class CreateRequests < ActiveRecord::Migration
   		t.string :name
   		t.integer :length
   		t.boolean :longer_than_mk
+  		t.integer :searches
 
       t.timestamps null: false
   	end

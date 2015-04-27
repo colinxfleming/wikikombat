@@ -1,4 +1,4 @@
 class Request < ActiveRecord::Base
-	validates :name, :length, presence: true
+	validates :name, :length, :searches, presence: true
 
 end

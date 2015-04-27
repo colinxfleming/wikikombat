@@ -52,19 +52,30 @@ post '/', provides: :json do
   # lowercasing everything
   #  enforcing uniqueness db side
 
+
   if params['text_input'].strip != ''
     # take input and get wikipedia page for that thing
     # not fancy enough to handle multiple entries for something with the same name
-    input = URI.escape params['text_input']
-    wikipedia_url = "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content"
 
-    response = HTTParty.get(wikipedia_url, headers: {"User-Agent" => settings.user_agent}).parsed_response.to_json
+    wiki = params['text_input'].strip.downcase
 
-    mk = Request.where(name: 'Mortal Kombat').first
+    if Request.where(name: wiki).empty?
+      input = URI.escape params['text_input']
+      wikipedia_url = "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content"
 
-    a = Request.create  name: params['text_input'], 
-                    length: response.length, 
-                    longer_than_mk: response.length > mk.length ? 1 : 0
+      response = HTTParty.get(wikipedia_url, headers: {"User-Agent" => settings.user_agent}).parsed_response.to_json
+
+      mk = Request.where(name: 'mortal kombat').first
+
+      a = Request.create  name: wiki, 
+                          length: response.length, 
+                          longer_than_mk: response.length > mk.length ? 1 : 0,
+                          searches: 1
+    else
+      a = Request.where name: wiki
+      a.searches += 1
+      a.save
+    end
 
     result = a.longer_than_mk? ? "#{a.name} is longer than the entry for Mortal Kombat." : "#{a.name} is way less complicated than Mortal Kombat!"
 
