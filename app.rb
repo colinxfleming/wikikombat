@@ -6,8 +6,8 @@ require 'erubis'
 require 'json'
 require 'httparty'
 
-# require 'sinatra/config_file' # uncomment these lines and fill out secrets.yml if you need secrets
-# config_file './config/secrets.yml'
+require 'sinatra/config_file' # uncomment these lines and fill out config.yml if you need secrets
+config_file './config/config.yml'
 
 # require everything in models and helpers
 ['models', 'helpers'].each do |dir|
@@ -51,7 +51,13 @@ post '/', provides: :json do
     # take input and get wikipedia page for that thing
     # not fancy enough to handle multiple entries for something with the same name
     input = URI.escape params['text_input']
-    response = HTTParty.get("http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content").parsed_response.to_json
+    wikipedia_url = "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content"
+
+    user_agent = "WikiKombat (http://skeletonsinatra.herokuapp.com/; MyCoolTool@example.com) Jokey Sinatra app that compares the lengths of two Wikipedia pages"
+
+    headers = {"User-Agent" => user_agent}
+
+    response = HTTParty.get(wikipedia_url, headers: headers).parsed_response.to_json
 
     mk = Request.where(name: 'Mortal Kombat').first
 
