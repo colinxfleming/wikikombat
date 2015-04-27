@@ -36,7 +36,7 @@ end
 # ROUTES
 # index route
 get '/' do 
-	@requests = Request.last(5).reverse
+	@requests = Request.order(updated_at: :desc).take(5)
   erb :index
 end
 
@@ -60,7 +60,7 @@ post '/', provides: :json do
     if a.empty?
       # if it doesn't exist, hit wikipedia api and load the result into the db
       input = URI.escape wiki
-      wikipedia_url = "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input.titleize}&prop=revisions&rvprop=content"
+      wikipedia_url = "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content"
 
       response = HTTParty.get(wikipedia_url, headers: {"User-Agent" => settings.user_agent}).parsed_response.to_json
 
