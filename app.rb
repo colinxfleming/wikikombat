@@ -52,32 +52,32 @@ post '/', provides: :json do
   # lowercasing everything
   #  enforcing uniqueness db side
 
+  wiki = params['text_input'].strip.titleize
 
-  if params['text_input'].strip != ''
-    # take input and get wikipedia page for that thing
-    # not fancy enough to handle multiple entries for something with the same name
-
-    wiki = params['text_input'].strip.downcase
-
-    if Request.where(name: wiki).empty?
-      input = URI.escape params['text_input']
-      wikipedia_url = "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content"
+  if wiki != '' # this should be clientside but serverside is fine for now
+    # check if record exists
+    a = Request.where(name: wiki.downcase)
+    if a.empty?
+      # if it doesn't exist, hit wikipedia api and load the result into the db
+      input = URI.escape wiki
+      wikipedia_url = "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input.titleize}&prop=revisions&rvprop=content"
 
       response = HTTParty.get(wikipedia_url, headers: {"User-Agent" => settings.user_agent}).parsed_response.to_json
 
       mk = Request.where(name: 'mortal kombat').first
 
-      a = Request.create  name: wiki, 
+      a = Request.create  name: wiki.downcase, 
                           length: response.length, 
                           longer_than_mk: response.length > mk.length ? 1 : 0,
                           searches: 1
     else
-      a = Request.where name: wiki
+      # if it already exists, increment and tap the updated_at dt
+      a = a.take 
       a.searches += 1
       a.save
     end
 
-    result = a.longer_than_mk? ? "#{a.name} is longer than the entry for Mortal Kombat." : "#{a.name} is way less complicated than Mortal Kombat!"
+    result = a.longer_than_mk? ? "#{a.name.titleize} is longer than the entry for Mortal Kombat." : "#{a.name.titleize} is way less complicated than Mortal Kombat!"
 
   	halt 200, {msg: result}.to_json
   else 

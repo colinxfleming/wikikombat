@@ -1,4 +1,4 @@
-<h1>Is It Longer Than The Wikipedia Entry for Mortal Kombat?</h1>
+<h1>Test App?</h1>
 
 <div class="row">
 	<div class="col-md-12 text-center">
@@ -17,7 +17,7 @@
 		<h3>Last five asks</h3>
 		<table class="table table-bordered table-striped" id='result_table'>
 			<tr>
-				<% @requests[0].attributes.keys.select {|k| k != 'id' && k !~ /at/ }.each do |key| %>
+				<% @requests[0].attributes.keys.select { |k| k != 'id' && k !~ /at/ && k !~ /search/ }.each do |key| %>
 					<th><%= key.capitalize.gsub('_',' ') %></th>
 				<% end %>
 			</tr>
