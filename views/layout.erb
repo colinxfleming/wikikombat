@@ -4,8 +4,9 @@
 	<meta charset="UTF-8">
 	<title><%= "#{settings.title}" %></title>
 
-	<!-- <link rel="icon" href="/favicon.ico"> -->
+	<link rel="icon" href="/favicon.ico">
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/footer.css">
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -16,28 +17,6 @@
 	<script type="text/javascript" src="/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/ajax.js"></script>
-
-  <style>
-		body { padding-top: 70px; }
-
-		/* footer styling */
-		html {
-			position: relative;
-			min-height: 100%;
-		}
-		body {
-			/* Margin bottom by footer height */
-			margin-bottom: 60px;
-		}
-		.footer {
-			position: absolute;
-			bottom: 0;
-			width: 100%;
-			/* Set the fixed height of the footer here */
-			height: 60px;
-			background-color: #f5f5f5;
-		}
-  </style>
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -71,7 +50,7 @@
 
 	<footer class='footer'>
 		<div class='container'>
-			<h4>This very stupid app built as a simple Sinatra template.</h4>
+			<p class="text-muted footer-text">This very stupid app built as a simple Sinatra template.</p>
 		</div>
 	</footer>
 </body>
