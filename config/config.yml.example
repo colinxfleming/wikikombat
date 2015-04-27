@@ -1,2 +1,5 @@
-secrets:
-  value: Here's where you would put a secret
+# set to 
+# accessible through settings.whatever; e.g. settings.title
+
+title: App Title
+user_agent: "User Agent for HTTParty headers"
