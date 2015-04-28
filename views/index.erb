@@ -1,20 +1,24 @@
-<h1>Test App?</h1>
 
-<div class="row">
-	<div class="col-md-12 text-center">
-		<%= erb :_form %>		
+
+
+<div class="col-md-12">
+	<div class="row">
+		<h1><%= settings.title %></h1>
 	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-12 text-center">
-		<h2 id="result">(mash that button!)</h2>
+	<div class="row" id="description">
+		<p><strong>INSTRUCTIONS:</strong> Put something in this box and mash that there button to see if the Wikipedia page is longer than (and thus more important than) the Wikipedia page for Mortal Kombat.</p>
+		<p>(This doesn't handle disambiguation or misspellings! If you can't be bothered to spell it right, it's clearly WAY less important than Mortal Kombat.)</p>
 	</div>
-</div>
+	<div class="row text-center">
+		<%= erb :_form %>	
+	</div>
 
-<div class="row">
-	<div class="col-md-12">
-		<h3>Last five asks</h3>
+	<div class="row text-center">
+		<h2 id="result">(mash that there button!)</h2>
+	</div>
+
+	<div class="row">
+		<h3>Last five importance checks</h3>
 		<table class="table table-bordered table-striped" id='result_table'>
 			<tr>
 				<% @requests[0].attributes.keys.select { |k| k != 'id' && k !~ /at/ && k !~ /search/ }.each do |key| %>
@@ -26,6 +30,6 @@
 					<%= erb :_request, layout: false, locals: { request: req } %>				
 				</tr>
 			<% end %>
-		</table>
-	</div>		
+		</table>		
+	</div>
 </div>

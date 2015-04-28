@@ -19,7 +19,7 @@ set :title, settings.title
 
 # db stuff
 configure :development do 
-  set :database, {adapter: 'postgresql', database: 'sinatra-skeleton'} # make sure to create the db in pg: createdb sinatra-skeleton
+  set :database, {adapter: 'postgresql', database: settings.development_db} # make sure to create the db in pg: createdb sinatra-skeleton
 end
 configure :production do
  db = URI.parse(ENV['DATABASE_URL'] || 'postgres:///localhost/mydb')
