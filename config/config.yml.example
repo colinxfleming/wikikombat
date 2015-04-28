@@ -1,5 +1,6 @@
-# set to 
 # accessible through settings.whatever; e.g. settings.title
+# you may want to set these as heroku env variables in production
 
 title: App Title
-user_agent: "User Agent for HTTParty headers"
+user_agent: "User agent for HTTParty headers"
+development_db: cleaned-up-app-title

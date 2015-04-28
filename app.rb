@@ -6,16 +6,18 @@ require 'erubis'
 require 'json'
 require 'httparty'
 
-# note that this gem requires tilt 1.4.1 and breaks on tilt 2.0.1. If it screws up try gem uninstall tilt -v 2.0.1
-require 'sinatra/config_file' # uncomment these lines and fill out config.yml if you need secrets
-config_file './config/config.yml'
+if settings.development?
+  # note that this gem requires tilt 1.4.1 and breaks on tilt 2.0.1. If it screws up try gem uninstall tilt -v 2.0.1
+  require 'sinatra/config_file' # uncomment these lines and fill out config.yml if you need secrets in development / aren't deploying to heroku
+  config_file './config/config.yml'
+end
 
 # require everything in models and helpers
 ['models', 'helpers'].each do |dir|
 	Dir.entries("./#{dir}").select { |f| !File.directory? f }.each { |file| require_relative "./#{dir}/#{file}" }
 end
 
-set :title, settings.title
+set :title, ENV['title'] ||= settings.title
 
 # db stuff
 configure :development do 
@@ -62,7 +64,7 @@ post '/', provides: :json do
       input = URI.escape wiki
       wikipedia_url = "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content"
 
-      response = HTTParty.get(wikipedia_url, headers: {"User-Agent" => settings.user_agent}).parsed_response.to_json
+      response = HTTParty.get(wikipedia_url, headers: {"User-Agent" => ENV['user_agent'] ||= settings.user_agent}).parsed_response.to_json
 
       mk = Request.where(name: 'mortal kombat').first
 
