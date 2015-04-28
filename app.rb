@@ -1,9 +1,10 @@
 # remember, you can console in irb with: require './app.rb'
-
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'erubis'
 require 'json'
+
+# optional gems
 require 'httparty'
 
 if settings.development?
@@ -50,12 +51,7 @@ end
 
 # create route
 post '/', provides: :json do 
-  #  room for improvement: checking against the db first
-  # lowercasing everything
-  #  enforcing uniqueness db side
-
   wiki = params['text_input'].strip.titleize
-
   if wiki != '' # this should be clientside but serverside is fine for now
     # check if record exists
     a = Request.where(name: wiki.downcase)
@@ -63,11 +59,8 @@ post '/', provides: :json do
       # if it doesn't exist, hit wikipedia api and load the result into the db
       input = URI.escape wiki
       wikipedia_url = "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=#{input}&prop=revisions&rvprop=content"
-
       response = HTTParty.get(wikipedia_url, headers: {"User-Agent" => ENV['user_agent'] ||= settings.user_agent}).parsed_response.to_json
-
       mk = Request.where(name: 'mortal kombat').first
-
       a = Request.create  name: wiki.downcase, 
                           length: response.length, 
                           longer_than_mk: response.length > mk.length ? 1 : 0,
@@ -78,9 +71,7 @@ post '/', provides: :json do
       a.searches += 1
       a.save
     end
-
     result = a.longer_than_mk? ? "#{a.name.titleize} is longer than the entry for Mortal Kombat." : "#{a.name.titleize} is way less complicated than Mortal Kombat!"
-
   	halt 200, {msg: result}.to_json
   else 
     halt 200, {msg: 'Please put something in the form!'}.to_json
