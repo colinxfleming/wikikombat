@@ -5,10 +5,9 @@ Quick and dirty frame
 ## TODO
 
 <ul>
-	<li>working routes</li>
-	<li>fleshed out gemfile</li>
-	<li>actually make this do something (mortal kombat vs constitution probably)</li>
-	<li>api that returns json from calls</li>
+	<li>Test suite</li>
+	<li>Refresh importance checks section on form submit</li>
+	<li>Full instructions for deployment prep</li>
 </ul>
 
 ## Deployment Prep 
