@@ -19,9 +19,8 @@
 		<h3>Last five importance checks</h3>
 		<table class="table table-bordered table-striped" id='result_table'>
 			<tr>
-				<% @requests[0].attributes.keys.select { |k| k != 'id' && k !~ /at/ && k !~ /search/ }.each do |key| %>
-					<th><%= key.capitalize.gsub('_',' ') %></th>
-				<% end %>
+				<th>Wikipedia Page</th>
+				<th>More Important Than Mortal Kombat?</th>
 			</tr>
 			<% @requests.each do |req| %>
 				<tr class="result_row">
