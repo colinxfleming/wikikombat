@@ -7,7 +7,7 @@ require 'json'
 # optional gems
 require 'httparty'
 
-if settings.development?
+if settings.development? || settings.test?
   # note that this gem requires tilt 1.4.1 and breaks on tilt 2.0.1. If it screws up try gem uninstall tilt -v 2.0.1
   require 'sinatra/config_file' # uncomment these lines and fill out config.yml if you need secrets in development / aren't deploying to heroku
   config_file './config/config.yml'
@@ -21,8 +21,8 @@ end
 set :title, ENV['title'] ||= settings.title
 
 # db stuff
-configure :development do 
-  set :database, {adapter: 'postgresql', database: settings.development_db} # make sure to create the db in pg: createdb sinatra-skeleton
+configure :development, :test do 
+  set :database, {adapter: 'postgresql', database: settings.dev_db} # make sure to create the db in pg: createdb sinatra-skeleton
 end
 configure :production do
  db = URI.parse(ENV['DATABASE_URL'] || 'postgres:///localhost/mydb')
