@@ -10,6 +10,7 @@ gem 'erubis'
 group :test do 
 	gem 'minitest'
 	gem 'rack-test'
+	gem 'activesupport', require: 'active_support'
 end
 
 # custom gems
