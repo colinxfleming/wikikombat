@@ -2,33 +2,33 @@ require_relative 'spec_helper'
 
 class AppTest < ActiveSupport::TestCase
 	describe 'main app' do 
-		# it 'should run the stupid test suite' do 
-		# 	assert true
-		# end
+		it 'should run the stupid test suite' do 
+			assert true
+		end
 
-		# it 'should load the root and return ok' do 
-		# 	get '/'
-		# 	assert last_response.ok?
-		# end
+		it 'should load the root and return ok' do 
+			get '/'
+			assert last_response.ok?
+		end
 
-		# it 'should load the show route' do 
-		# 	get '/1'
-		# 	assert last_response.ok?
-		# end
+		it 'should load the show route' do 
+			get '/1'
+			assert last_response.ok?
+		end
 
-		# it 'should accept post requests' do 
-		# 	post '/', params = {text_input: 'goat'}
-		# 	assert last_response.ok?
-		# end
+		it 'should accept post requests' do 
+			post '/', params = {text_input: 'goat'}
+			assert last_response.ok?
+		end
 
-		# it 'should return some real nice json' do 
-		# 	post '/', params = {text_input: 'goat'}
-		# 	assert last_response.ok?
-		# 	assert_equal last_response.body, {msg: 'Goat is way less complicated than Mortal Kombat!'}.to_json
-		# 	post '/', params = {text_input: 'United States Constitution'}
-		# 	assert last_response.ok?
-		# 	assert_equal last_response.body, {msg: 'United States Constitution is longer than the entry for Mortal Kombat.'}.to_json
-		# end
+		it 'should return some real nice json' do 
+			post '/', params = {text_input: 'goat'}
+			assert last_response.ok?
+			assert_equal last_response.body, {msg: 'Goat is way less complicated than Mortal Kombat!'}.to_json
+			post '/', params = {text_input: 'United States Constitution'}
+			assert last_response.ok?
+			assert_equal last_response.body, {msg: 'United States Constitution is longer than the entry for Mortal Kombat.'}.to_json
+		end
 
 		# it 'should have a working update route' do
 		# 	put '/1'
