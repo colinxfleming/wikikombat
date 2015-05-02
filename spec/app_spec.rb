@@ -44,7 +44,7 @@ class AppTest < ActiveSupport::TestCase
 	describe 'datamodels' do 
 		it 'should create a new entry for new requests' do 
 			assert_difference 'Request.count', 1 do 
-				Request.create name: 'rake test', length: 100, longer_than_mk: 1
+				Request.create name: 'rake test', length: 100, searches: 1, longer_than_mk: 1
 			end
 		end
 
