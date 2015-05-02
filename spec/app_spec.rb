@@ -50,11 +50,15 @@ class AppTest < ActiveSupport::TestCase
 
 		it 'should not create a new entry for existing requests' do 
 			assert_no_difference 'Request.count', 0 do 
-				post '/', params: {text_input: 'rake test'} 
+				# already created by the test above
+				post '/?text_input=rake%20test' # dirty but it works!
 			end
 		end
 
-		it 'should set the longer_than_mk boolean properly' do 
+		it 'should increment searches' do 
+			assert_difference 'Request.where(name: "rake test").first.searches', 1 do 
+				post '/?text_input=rake%20test'
+			end
 		end
 
 		# manual db cleanup
