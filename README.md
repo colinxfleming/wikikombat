@@ -28,10 +28,6 @@ Once you're ready for showtime, from the CLI:
     $ heroku set title='TITLE OF APP' # set other env vars if necessary
     $ heroku run rake db:seed # if necessary
 
-## TODO
+## Whatever
 
-<ul>
-	<li>Refresh importance checks section on form submit</li>
-	<li>Full instructions for deployment prep</li>
-</ul>
-
+Whatever.
