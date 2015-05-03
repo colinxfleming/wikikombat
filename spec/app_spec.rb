@@ -24,10 +24,10 @@ class AppTest < ActiveSupport::TestCase
 		it 'should return some real nice json' do 
 			post '/', params = {text_input: 'goat'}
 			assert last_response.ok?
-			assert_equal last_response.body, {msg: 'Goat is way less complicated than Mortal Kombat!'}.to_json
+			assert_match last_response.body, {msg: 'Goat is way less complicated than Mortal Kombat!'}.to_json
 			post '/', params = {text_input: 'United States Constitution'}
 			assert last_response.ok?
-			assert_equal last_response.body, {msg: 'United States Constitution is longer than the entry for Mortal Kombat.'}.to_json
+			assert_match last_response.body, {msg: 'United States Constitution is longer than the entry for Mortal Kombat.'}.to_json
 		end
 
 		# it 'should have a working update route' do
@@ -40,28 +40,32 @@ class AppTest < ActiveSupport::TestCase
 		# 	assert true
 		# end
 	end
+end
 
+class ModelTest < ActiveSupport::TestCase
 	describe 'datamodels' do 
+		timestamp = Time.now.strftime('%s')
+
 		it 'should create a new entry for new requests' do 
 			assert_difference 'Request.count', 1 do 
-				Request.create name: 'rake test', length: 100, searches: 1, longer_than_mk: 1
+				Request.create name: timestamp, length: 100, searches: 1, longer_than_mk: 1
 			end
 		end
 
 		it 'should not create a new entry for existing requests' do 
 			assert_no_difference 'Request.count', 0 do 
 				# already created by the test above
-				post '/?text_input=rake%20test' # dirty but it works!
+				post "/?text_input=#{timestamp}" # dirty but it works!
 			end
 		end
 
 		it 'should increment searches' do 
-			assert_difference 'Request.where(name: "rake test").first.searches', 1 do 
-				post '/?text_input=rake%20test'
+			assert_difference "Request.where(name: #{timestamp}).first.searches", 1 do 
+				post "/?text_input=#{timestamp}"
 			end
 		end
 
 		# manual db cleanup
-		Request.destroy_all name: 'rake test'
+		Request.destroy_all name: timestamp
 	end
 end
