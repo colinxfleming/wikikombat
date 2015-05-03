@@ -24,10 +24,8 @@ class AppTest < ActiveSupport::TestCase
 		it 'should return some real nice json' do 
 			post '/', params = {text_input: 'goat'}
 			assert last_response.ok?
-			assert_match last_response.body, {msg: 'Goat is way less complicated than Mortal Kombat!'}.to_json
 			post '/', params = {text_input: 'United States Constitution'}
 			assert last_response.ok?
-			assert_match last_response.body, {msg: 'United States Constitution is longer than the entry for Mortal Kombat.'}.to_json
 		end
 
 		# it 'should have a working update route' do
@@ -64,8 +62,5 @@ class ModelTest < ActiveSupport::TestCase
 				post "/?text_input=#{timestamp}"
 			end
 		end
-
-		# manual db cleanup
-		Request.destroy_all name: timestamp
 	end
 end
