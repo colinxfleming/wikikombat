@@ -70,7 +70,8 @@ post '/', provides: :json do
       a.save
     end
     result = a.longer_than_mk? ? "#{a.name.titleize} is longer than the entry for Mortal Kombat." : "#{a.name.titleize} is way less complicated than Mortal Kombat!"
-  	halt 200, {msg: result}.to_json
+    requests = Request.order(updated_at: :desc).take(5).each { |r| r.name = r.name.titleize }
+  	halt 200, {msg: result, roll: requests}.to_json
   else 
     halt 200, {msg: 'Please put something in the form!'}.to_json
   end
