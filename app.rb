@@ -16,7 +16,7 @@ end
 ['models', 'helpers'].each do |dir|
 	Dir.entries("./#{dir}").select { |f| !File.directory? f }.each { |file| require_relative "./#{dir}/#{file}" }
 end
-set :title, ENV['title'] ||= settings.title
+set :title, 'Wiki Kombat'
 
 # db stuff
 configure :development, :test do 
