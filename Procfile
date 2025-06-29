@@ -1,1 +1,0 @@
-web: bundle exec ruby app.rb -p $PORT RACK_ENV=production
